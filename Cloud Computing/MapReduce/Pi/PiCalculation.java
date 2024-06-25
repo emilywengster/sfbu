@@ -16,13 +16,15 @@ import org.apache.hadoop.fs.*;
 
 public class PiCalculation {
 
-    public static class TokenizerMapper extends Mapper<Object, Text, Text, IntWritable> {
+    public static class TokenizerMapper
+            extends Mapper<Object, Text, Text, IntWritable> {
 
         private final static IntWritable one = new IntWritable(1);
         private Text word = new Text();
         private int totalLines = 0;
 
         public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
+
             totalLines += 1;
             String line = value.toString();
             line = line.replace("(", "");
@@ -30,19 +32,17 @@ public class PiCalculation {
             line = line.replace(",", " ");
 
             StringTokenizer itr = new StringTokenizer(line);
-            int radius = 200; // Same as the one you give in PiDataGenerator stage
+            int radius = 200;// Same as the one you give in PiDataGenerator stage
             while (itr.hasMoreTokens()) {
                 String x, y;
                 x = itr.nextToken();
-
                 if (itr.hasMoreTokens()) {
                     y = itr.nextToken();
                 } else {
                     y = "0";
                 }
-
-                int xvalue = Integer.parseInt(x);
-                int yvalue = Integer.parseInt(y);
+                int xvalue = (int) (Integer.parseInt(x));
+                int yvalue = (int) (Integer.parseInt(y));
                 double check = Math.sqrt(Math.pow((radius - xvalue), 2) + Math.pow((radius - yvalue), 2));
 
                 if (check < radius) {
@@ -55,10 +55,12 @@ public class PiCalculation {
         }
     }
 
-    public static class IntSumReducer extends Reducer<Text, IntWritable, Text, IntWritable> {
+    public static class IntSumReducer
+            extends Reducer<Text, IntWritable, Text, IntWritable> {
         private IntWritable result = new IntWritable();
 
-        public void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
+        public void reduce(Text key, Iterable<IntWritable> values,
+                Context context) throws IOException, InterruptedException {
             int sum = 0;
             for (IntWritable val : values) {
                 sum += val.get();
@@ -79,17 +81,21 @@ public class PiCalculation {
         job.setOutputValueClass(IntWritable.class);
         FileInputFormat.addInputPath(job, new Path(args[0]));
         FileOutputFormat.setOutputPath(job, new Path(args[1]));
+        // System.exit(job.waitForCompletion(true) ? 0 : 1);
         job.waitForCompletion(true);
-
         String filePath = args[1] + "/" + "part-r-00000";
         Path path = new Path(filePath);
         FileSystem fs = FileSystem.get(path.toUri(), conf);
 
         BufferedReader br = new BufferedReader(new InputStreamReader(fs.open(path)));
 
-        String line1 = br.readLine();
+        String z, inside = null, outside = null;
+
+        String line1, line2;
+
+        line1 = br.readLine();
         System.out.println(line1);
-        String line2 = br.readLine();
+        line2 = br.readLine();
         System.out.println(line2);
 
         line1 = line1.replace("inside", "").trim();
