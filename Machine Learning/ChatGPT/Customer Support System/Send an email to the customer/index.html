@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Question Interface</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 700px;
+            padding: 25px;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+        .input-group textarea, .input-group select {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.1em;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: none;
+        }
+        .input-group textarea {
+            height: 150px;
+        }
+        #answer {
+            height: 200px; /* Increase height of the answer box */
+            background-color: #f9f9f9; /* Make the answer field look more distinct */
+        }
+        .btn-submit {
+            padding: 15px 30px;
+            font-size: 1.2em;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+        .btn-submit:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <form method="POST">
+        <div class="input-group">
+            <label for="language">Language</label>
+            <select name="language" id="language">
+                <option value="en">English</option>
+                <option value="es">Spanish</option>
+                <option value="zh">Chinese</option>
+                <option value="tl">Tagalog</option>
+                <option value="vi">Vietnamese</option>
+                <option value="ar">Arabic</option>
+                <option value="fr">French</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label for="question">Question</label>
+            <textarea name="question" id="question" placeholder="Ask a question about a product...">{{ question or '' }}</textarea> <!-- Keep the question -->
+        </div>
+
+        <div class="input-group">
+            <label for="answer">Answer</label>
+            <textarea id="answer" readonly>{{ answer or 'The answer will appear here.' }}</textarea> <!-- Answer box with increased size -->
+        </div>
+
+        <div class="input-group">
+            <button type="submit" class="btn-submit">Submit</button>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>
