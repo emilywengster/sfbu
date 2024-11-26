@@ -1,4 +1,4 @@
-The overall process of working with input texts, embeddings, vectors, and search index involves the following steps:
+The overall process of working with input texts, embeddings, vectors, and search index involves the following steps: \n
     -Step 1: Generate Embeddings from Input Texts
         In this step, you convert input texts into numerical embeddings using pre-trained models or embedding techniques.
     -Step 2: Create Vectors from Embeddings
